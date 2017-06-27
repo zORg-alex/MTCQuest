@@ -1,0 +1,168 @@
+﻿<ListBox x:Class="MTCQuest.CustomControls.ThemesAndQuestionsGridView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:e="clr-namespace:EffectLibrary;assembly=EffectLibrary"
+             xmlns:c="clr-namespace:MTCQuest.CustomControls"
+             xmlns:cnv="clr-namespace:MTCQuest.Converters"
+             xmlns:vmq="clr-namespace:MTCQuest.ViewModel.zQuest;assembly=MTCQuest.ViewModel"
+             xmlns:local="clr-namespace:MTCQuest"
+             mc:Ignorable="d" 
+             d:DataContext="{DynamicResource TestQuest}"
+             d:DesignHeight="300" d:DesignWidth="300" Style="{DynamicResource ThemeListBoxStyle}" ItemsPanel="{DynamicResource ThemesItemsPanelTemplate}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ItemTemplate="{DynamicResource ThemeTemplate}" ItemsSource="{Binding Themes}" ItemContainerStyle="{DynamicResource ThemesItemStyle}">
+    <ListBox.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/MTCQuest;component/Themes/Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <cnv:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
+            <cnv:IntToGridLengthConverter x:Key="IntToGridLengthConverter"/>
+            <vmq:Quest x:Key="TestQuest">
+                <vmq:Quest.Themes>
+                    <vmq:Theme Text="Theme1">
+                        <vmq:Theme.Questions>
+                            <vmq:Question Text="Question1"/>
+                            <vmq:Question Text="Question2"/>
+                            <vmq:Question Text="Question3"/>
+                        </vmq:Theme.Questions>
+                    </vmq:Theme>
+                    <vmq:Theme Text="Theme2">
+                        <vmq:Theme.Questions>
+                            <vmq:Question Text="Question1"/>
+                            <vmq:Question Text="Question2"/>
+                            <vmq:Question Text="Question3"/>
+                        </vmq:Theme.Questions>
+                    </vmq:Theme>
+                    <vmq:Theme Text="Theme3">
+                        <vmq:Theme.Questions>
+                            <vmq:Question Text="Question1"/>
+                            <vmq:Question Text="Question2"/>
+                            <vmq:Question Text="Question3"/>
+                        </vmq:Theme.Questions>
+                    </vmq:Theme>
+                </vmq:Quest.Themes>
+            </vmq:Quest>
+            <e:OverlayEffect x:Key="OverlayEffect" BlendSolidBrush="{DynamicResource Pallete.Highlight.Accent}"/>
+            <e:DesaturateEffect x:Key="DesaturateEffect" DesaturationFactor="0.5"/>
+            <Style x:Key="ThemeListBoxStyle" TargetType="{x:Type ListBox}">
+                <Setter Property="Background" Value="{StaticResource Pallete.Secondary}"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Foreground" Value="{StaticResource Pallete.PrimaryText}"/>
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+                <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBox}">
+                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="0" SnapsToDevicePixels="true">
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="{TemplateBinding Padding}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource ListBox.Disabled.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ListBox.Disabled.Border}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <ItemsPanelTemplate x:Key="ThemesItemsPanelTemplate">
+                <UniformGrid IsItemsHost="True" Rows="1"/>
+            </ItemsPanelTemplate>
+            <SolidColorBrush x:Key="Item.MouseOver.Background" Color="#1F26A0DA"/>
+            <SolidColorBrush x:Key="Item.MouseOver.Border" Color="#a826A0Da"/>
+            <SolidColorBrush x:Key="Item.SelectedInactive.Background" Color="#3DDADADA"/>
+            <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="#FFDADADA"/>
+            <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="#3D26A0DA"/>
+            <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#FF26A0DA"/>
+            <Style x:Key="ThemesItemStyle" TargetType="{x:Type ListBoxItem}">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+                <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.MouseOver.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.MouseOver.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Border}"/>
+                                </MultiTrigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <ItemsPanelTemplate x:Key="QuestionsPanelTemplate">
+                <UniformGrid IsItemsHost="True" Columns="1"/>
+            </ItemsPanelTemplate>
+            <DataTemplate x:Key="QuestionTemplate" DataType="{x:Type vmq:Question}">
+                <Border Background="{Binding Color, Converter={StaticResource ColorToSolidColorBrushConverter}}" d:DesignHeight="100" d:DesignWidth="200" Margin="4">
+                    <TextBox x:Name="T" Text="{Binding Text}"
+            			HorizontalAlignment="Center" VerticalAlignment="Center"
+            			Background="{x:Null}" BorderBrush="{x:Null}"
+            			IsReadOnly="True" TextWrapping="Wrap"
+            			MaxLines="3" MaxLength="3" BorderThickness="0"/>
+                </Border>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ThemeTemplate" DataType="{x:Type vmq:Theme}">
+                <Grid d:DesignWidth="100" d:DesignHeight="300">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="{Binding Items.Count, ConverterParameter=Star, Converter={StaticResource IntToGridLengthConverter}, ElementName=B, Mode=OneWay}"/>
+                    </Grid.RowDefinitions>
+                    <Border Background="{Binding Color, Converter={StaticResource ColorToSolidColorBrushConverter}}" Margin="4">
+                        <TextBox x:Name="T" Text="{Binding Text}"
+                                 HorizontalAlignment="Center" VerticalAlignment="Center"
+                                 Background="{x:Null}" BorderBrush="{x:Null}"
+                                 IsReadOnly="True" TextWrapping="Wrap"
+                                 MaxLines="3" MaxLength="3" BorderThickness="0"/>
+                    </Border>
+                    <ListBox x:Name="B" Grid.Row="1" ItemsSource="{Binding Questions}"
+                             ItemsPanel="{DynamicResource QuestionsPanelTemplate}"
+                             HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                             ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             ItemContainerStyle="{DynamicResource ThemesItemStyle}" Style="{DynamicResource ThemeListBoxStyle}"
+                             ItemTemplate="{DynamicResource QuestionTemplate}" Background="White"/>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ListBox.Resources>
+</ListBox>
